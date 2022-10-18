@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import React, { useState, useEffect } from "react";
 import ContactList from "./ContactList";
-
+import SingleContact from "./component/singleContact";
 const Main = () => {
   const [contacts, setContact] = useState([]);
   //---------initialize state to select contact--------
