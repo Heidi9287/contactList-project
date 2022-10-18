@@ -1,18 +1,12 @@
-import react from 'react';
+import react from "react";
 
 const ContactRow = (props) => {
   return (
-    <>
-      {props.contacts.map((contact, uniqId) => {
-        return (
-          <tr key={uniqId}>
-            <td>{contact.name}</td>
-            <td>{contact.phone}</td>
-            <td>{contact.email}</td>
-          </tr>
-        );
-      })}
-    </>
+    <tr onClick={() => props.selectContact(props.contact.id)}>
+      <td>{props.contact.name}</td>
+      <td>{props.contact.phone}</td>
+      <td>{props.contact.email}</td>
+    </tr>
   );
 };
 

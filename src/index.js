@@ -1,24 +1,47 @@
-import ReactDOM from 'react-dom';
-import React, { useState } from 'react';
-import ContactList from './ContactList';
+import ReactDOM from "react-dom";
+import React, { useState, useEffect } from "react";
+import ContactList from "./ContactList";
 
-const dummyData = [
-  { id: 1, name: 'R2-D2', phone: '222-222-2222', email: 'r2d2@droids.com' },
-  { id: 2, name: 'C-3PO', phone: '333-333-3333', email: 'c3po@droids.com' },
-  { id: 3, name: 'BB-8', phone: '888-888-8888', email: 'bb8@droids.com' },
-];
 const Main = () => {
-  const [contacts, setContact] = useState(dummyData);
+  const [contacts, setContact] = useState([]);
+  //---------initialize state to select contact--------
+  const [selectedContact, setSelectedContact] = useState({});
+  const getContacts = async () => {
+    const response = await fetch(
+      "http://jsonplace-univclone.herokuapp.com/users"
+    );
+    const json = await response.json();
+    setContact(json);
+  };
+  getContacts();
+
+  const selectContact = async (contactId) => {
+    const response = await fetch(
+      `http://jsonplace-univclone.herokuapp.com/users/${contactId}`
+    );
+    const contact = await response.json();
+    setSelectedContact(contact);
+  };
+
+  useEffect(() => {
+    console.log("first loading");
+    getContacts();
+  }, []);
+
   return (
     <div id="main">
       <div id="navbar">
         <div>Contact List</div>
       </div>
       <div id="container">
-        <ContactList contacts={contacts} />
+        {selectedContact.id ? (
+          <SingleContact selectedContact={selectedContact} />
+        ) : (
+          <ContactList contacts={contacts} selectContact={selectContact} />
+        )}
       </div>
     </div>
   );
 };
 
-ReactDOM.render(<Main />, document.getElementById('app'));
+ReactDOM.render(<Main />, document.getElementById("app"));

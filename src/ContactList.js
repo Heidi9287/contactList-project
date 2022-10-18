@@ -1,6 +1,5 @@
-import React from 'react';
-import ContactRow from './ContactRow.js';
-
+import React from "react";
+import ContactRow from "./ContactRow.js";
 const ContactList = (props) => {
   return (
     <table>
@@ -10,17 +9,15 @@ const ContactList = (props) => {
           <th>Phone</th>
           <th>Email</th>
         </tr>
-        <ContactRow contacts={props.contacts} />
-        {/* <ContactRow contacts={contacts} /> */}
-        {/* {props.contacts.map((contact, uniqId) => {
+        {props.contacts.map((contact) => {
           return (
-            <tr key={uniqId}>
-              <td>{contact.name}</td>
-              <td>{contact.phone}</td>
-              <td>{contact.email}</td>
-            </tr>
+            <ContactRow
+              key={contact.id}
+              contact={contact}
+              selectContact={props.selectContact}
+            />
           );
-        })} */}
+        })}
       </tbody>
     </table>
   );
